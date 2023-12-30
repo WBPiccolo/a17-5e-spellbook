@@ -1,0 +1,31 @@
+<div class="spell-card">
+    <div class="spell-card__name">
+        {{spell.name}}
+    </div>
+    <div class="spell-card__metadata">
+        {{spell.level}} {{spell.school}} {{spell.requiresConcentration}} {{spell.isRitual}}
+    </div>
+    <div class="spell-card__casting-info">
+        <div class="spell-card__casting-time">
+            <div class="spell-card__label">Casting time</div>
+            <div class="spell-card__value">{{spell.castingTime}}</div>
+        </div>
+        <div class="spell-card__casting-range">
+            <div class="spell-card__label">Casting range</div>
+            <div class="spell-card__value">{{spell.range}}</div>
+        </div>
+        <div class="spell-card__casting-duration">
+            <div class="spell-card__label">Casting duration</div>
+            <div class="spell-card__value">{{spell.duration}}</div>
+        </div>
+    </div>
+    <div class="spell-card__description">
+        {{spell.description}}
+    </div>
+    <div class="spell-card__description spell-card__higher-levels">
+        {{spell.atHigherLevels}}
+    </div>
+    <div class="spell-card__footer">
+        {{spell.components}} {{spell.source}}
+    </div>
+</div>

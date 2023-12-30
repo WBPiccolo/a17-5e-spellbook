@@ -1,0 +1,72 @@
+<form [formGroup]="spellForm" class="spell-form">
+    <div class="spell-form__field">
+        @if(spellForm.controls['name']) {
+            <label for="formControlName" class="spell-form__label">Spell name</label>
+            <input id="formControlName" type="text" formControlName="name" class="spell-form__input">
+        }
+        @if(spellForm.controls['level']) {
+            <label for="formControlLevel" class="spell-form__label">Level</label>
+            <select id="formControlLevel" formControlName="level" class="spell-form__select">
+                @for (level of levels; track $index) {
+                    <option [ngValue]="level" class="spell-form__option">
+                        {{ level }}
+                    </option>
+                }
+            </select>
+        }
+        @if(spellForm.controls['school']) {
+            <label for="formControlSchool" class="spell-form__label">School</label>
+            <select id="formControlSchool" formControlName="school" class="spell-form__select">
+                @for (school of schools; track $index) {
+                    <option [ngValue]="school" class="spell-form__option">
+                        {{ school }}
+                    </option>
+                }
+            </select>
+        }
+        @if(spellForm.controls['requiresConcentration']) {
+            <input id="formControlRequiresConcentration" type="checkbox" formControlName="requiresConcentration" class="spell-form__checkbox">
+            <label for="formControlRequiresConcentration" class="spell-form__label-checkbox">Concentration</label>
+        }
+        @if(spellForm.controls['isRitual']) {
+            <input id="formControlIsRitual" type="checkbox" formControlName="isRitual" class="spell-form__checkbox">
+            <label for="formControlIsRitual" class="spell-form__label-checkbox">isRitual</label>
+        }
+    </div>
+    <div class="spell-form__field">
+        @if(spellForm.controls['castingTime']) {
+            <label for="formControlCastingTime" class="spell-form__label">Casting Time</label>
+            <input id="formControlCastingTime" type="text" formControlName="castingTime" class="spell-form__input">
+        }
+        @if(spellForm.controls['duration']) {
+            <label for="formControlDuration" class="spell-form__label">Duration</label>
+            <input id="formControlDuration" type="text" formControlName="duration" class="spell-form__input">
+        }
+        @if(spellForm.controls['range']) {
+            <label for="formControlRange" class="spell-form__label">Range</label>
+            <input id="formControlRange" type="text" formControlName="range" class="spell-form__input">
+        }
+    </div>
+    <div class="spell-form__field">
+        @if(spellForm.controls['description']) {
+            <label for="formControlDescription" class="spell-form__label">Description</label>
+            <textarea id="formControlDescription" formControlName="description" rows="4" cols="50" class="spell-form__textarea"></textarea>
+        }
+    </div>
+    <div class="spell-form__field">
+        @if(spellForm.controls['atHigherLevels']) {
+            <label for="formControlAtHigherLevels" class="spell-form__label">atHigherLevels</label>
+            <textarea id="formControlAtHigherLevels" formControlName="atHigherLevels" rows="4" cols="50" class="spell-form__textarea"></textarea>
+        }
+    </div>
+    <div class="spell-form__field">
+        @if(spellForm.controls['components']) {
+            <label for="formControlComponents" class="spell-form__label">Components</label>
+            <input id="formControlComponents" type="text" formControlName="components" class="spell-form__input">
+        }
+        @if(spellForm.controls['source']) {
+            <label for="formControlSource" class="spell-form__label">Source</label>
+            <input id="formControlSource" type="text" formControlName="source" class="spell-form__input">
+        }
+    </div>
+</form>

@@ -1,0 +1,41 @@
+.spell-card {
+    // Styles for the spell card block
+
+    &__name {
+        // Styles for the name element
+    }
+
+    &__metadata {
+        // Styles for the metadata element
+    }
+
+    &__casting-info {
+        // Styles for the casting info element
+
+        &__casting-time,
+        &__casting-range,
+        &__casting-duration {
+            // Styles for individual casting time, range, and duration elements
+        }
+
+        &__label {
+            // Styles for the label element within casting time, range, and duration
+        }
+
+        &__value {
+            // Styles for the value element within casting time, range, and duration
+        }
+    }
+
+    &__description {
+        // Styles for the description element
+
+        &.spell-card__higher-levels {
+            // Styles for the higher levels description element
+        }
+    }
+
+    &__footer {
+        // Styles for the footer element
+    }
+}
