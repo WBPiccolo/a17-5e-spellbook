@@ -3,12 +3,12 @@
   (addClick)="manageAddClick()" (editClick)="manageEditClick()" (importClick)="manageImportClick()" (exportClick)="manageExportClick()"
 ></app-top-bar>
 
-<app-spell-form [spellForm]="spellForm" [schools]="schools" [levels]="levels"></app-spell-form>
+<app-spell-form [spellForm]="spellForm" [schools]="schools" [levels]="levels" [classes]="classes"></app-spell-form>
 
 <div class="spellbook" id="printHere">
   @for (spell of spellBookSignal(); track $index) {
-    <app-spell-card [spell]="spell" (click)="spellClick(spell, $index)"></app-spell-card>
+    <app-spell-card [spell]="spell" [colourMap]="dndClassColors" (click)="spellClick(spell, $index)"></app-spell-card>
   }
 </div>
 
-<button (click)="printSpellBook()" [disabled]="!spellBookSignal().length">PRINT</button>
+<!-- <button (click)="printSpellBook()" [disabled]="!spellBookSignal().length">PRINT</button> -->

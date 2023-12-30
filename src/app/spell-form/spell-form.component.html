@@ -64,9 +64,15 @@
             <label for="formControlComponents" class="spell-form__label">Components</label>
             <input id="formControlComponents" type="text" formControlName="components" class="spell-form__input">
         }
-        @if(spellForm.controls['source']) {
-            <label for="formControlSource" class="spell-form__label">Source</label>
-            <input id="formControlSource" type="text" formControlName="source" class="spell-form__input">
+        @if(spellForm.controls['class']) {
+            <label for="formControlClass" class="spell-form__label">Class</label>
+            <select id="formControlClass" formControlName="class" class="spell-form__select">
+                @for (class of classes; track $index) {
+                    <option [ngValue]="class" class="spell-form__option">
+                        {{ class }}
+                    </option>
+                }
+            </select>
         }
     </div>
 </form>

@@ -13,4 +13,5 @@ export class SpellFormComponent {
   @Input() spellForm: FormGroup = new FormGroup({});
   @Input() levels: number[] = [];
   @Input() schools: string[] = [];
+  @Input() classes: string[] = [];
 } 

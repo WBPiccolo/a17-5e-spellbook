@@ -1,0 +1,67 @@
+// Define mixin for character class styles
+@mixin class-border($class) {
+    // Default border style
+    border: 1px solid #ccc;
+
+    // Specific border styles for each class
+    @if $class == 'Artificer' {
+        border-color: #ffcc00; // Example color for Artificer
+    } @else if $class == 'Barbarian' {
+        border-color: #cc0000; // Example color for Barbarian
+    } @else if $class == 'Bard' {
+        border-color: #6600cc; // Example color for Bard
+    } // Add more conditions for other classes
+}
+
+// Base styling for the spell form
+.spell-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: auto;
+
+    // Styles for spell form field
+    &__field {
+        margin-bottom: 16px;
+    }
+
+    // Styles for label
+    &__label {
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+
+    // Styles for input, select, and textarea
+    &__input,
+    &__select,
+    &__textarea {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-top: 4px;
+        margin-bottom: 8px;
+        font-size: 14px;
+    }
+
+    // Styles for checkbox
+    &__checkbox {
+        margin-right: 8px;
+    }
+
+    // Apply specific border styles for each class
+    &.Artificer {
+        @include class-border('Artificer');
+    }
+
+    &.Barbarian {
+        @include class-border('Barbarian');
+    }
+
+    &.Bard {
+        @include class-border('Bard');
+    }
+
+    // Add more similar blocks for other classes
+}

@@ -14,4 +14,5 @@ export class SpellCardComponent {
   @Input() spell!: Spell;
   @Input() width: number = 300;
   @Input() height: number = 500;
+  @Input() colourMap: Map<string, string> = new Map([]);  
 }

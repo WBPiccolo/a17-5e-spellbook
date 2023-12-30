@@ -1,41 +1,57 @@
+// Base styling for the spell card
 .spell-card {
-    // Styles for the spell card block
-
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    
+    // Styles for spell name
     &__name {
-        // Styles for the name element
+        font-size: 1.2em;
+        font-weight: bold;
+        margin-bottom: 8px;
     }
 
+    // Styles for metadata
     &__metadata {
-        // Styles for the metadata element
+        text-align: center;
+        font-style: italic;
+        margin-bottom: 8px;
     }
 
+    // Styles for casting info
     &__casting-info {
-        // Styles for the casting info element
+        margin-bottom: 8px;
 
+        // Styles for casting time, range, and duration
         &__casting-time,
         &__casting-range,
         &__casting-duration {
-            // Styles for individual casting time, range, and duration elements
+            margin-bottom: 4px;
         }
 
+        // Styles for label and value in casting info
         &__label {
-            // Styles for the label element within casting time, range, and duration
+            font-weight: bold;
         }
 
         &__value {
-            // Styles for the value element within casting time, range, and duration
+            margin-left: 8px;
         }
     }
 
-    &__description {
-        // Styles for the description element
-
-        &.spell-card__higher-levels {
-            // Styles for the higher levels description element
-        }
+    // Styles for description and higher levels
+    &__description,
+    &__higher-levels {
+        margin-bottom: 8px;
     }
 
+    // Styles for footer
     &__footer {
-        // Styles for the footer element
+        font-size: 0.9em;
+        color: #777;
     }
 }

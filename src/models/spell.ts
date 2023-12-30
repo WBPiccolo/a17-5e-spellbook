@@ -16,4 +16,5 @@ export interface Spell {
   isRitual?: boolean;
   source?: string;
   requiresConcentration?: boolean;
+  class: string;
 }
