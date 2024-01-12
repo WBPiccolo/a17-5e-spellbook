@@ -1,13 +1,17 @@
-<app-top-bar 
-  [enableNew]="spellForm.valid" [enableEdit]="false" [enableImportExport]="false"
-  (addClick)="manageAddClick()" (editClick)="manageEditClick()" (importClick)="manageImportClick()" (exportClick)="manageExportClick()"
-></app-top-bar>
+<app-top-bar [enableNew]="spellForm.valid" [enableEdit]="false" [enableImportExport]="false"
+  (addClick)="manageAddClick()" (editClick)="manageEditClick()" (importClick)="manageImportClick()"
+  (exportClick)="manageExportClick()"></app-top-bar>
 
-<app-spell-form [spellForm]="spellForm" [schools]="schools" [levels]="levels" [classes]="classes"></app-spell-form>
+<div class="form-accordion">
+  <div class="form-accordion__header" (click)="manageAccordionStatus()">{{hideAccordion}}</div>
+  <div class="form-accordion__body" [ngClass]="hideAccordion? 'accordion_closed':'accordion_open'">
+    <app-spell-form [spellForm]="spellForm" [schools]="schools" [levels]="levels" [classes]="classes"></app-spell-form>
+  </div>
+</div>
 
 <div class="spellbook" id="printHere">
   @for (spell of spellBookSignal(); track $index) {
-    <app-spell-card [spell]="spell" [colourMap]="dndClassColors" (click)="spellClick(spell, $index)"></app-spell-card>
+  <app-spell-card [spell]="spell" [colourMap]="dndClassColors" (click)="spellClick(spell, $index)"></app-spell-card>
   }
 </div>
 

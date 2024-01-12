@@ -1,78 +1,114 @@
 <form [formGroup]="spellForm" class="spell-form">
-    <div class="spell-form__field">
+    <div class="spell-form__row">
         @if(spellForm.controls['name']) {
+        <div class="spell-form__field field--name">
             <label for="formControlName" class="spell-form__label">Spell name</label>
             <input id="formControlName" type="text" formControlName="name" class="spell-form__input">
+        </div>
         }
         @if(spellForm.controls['level']) {
+        <div class="spell-form__field field--level">
             <label for="formControlLevel" class="spell-form__label">Level</label>
             <select id="formControlLevel" formControlName="level" class="spell-form__select">
                 @for (level of levels; track $index) {
-                    <option [ngValue]="level" class="spell-form__option">
-                        {{ level }}
-                    </option>
+                <option [ngValue]="level" class="spell-form__option">
+                    {{ level }}
+                </option>
                 }
             </select>
+        </div>
         }
         @if(spellForm.controls['school']) {
+        <div class="spell-form__field field--school">
             <label for="formControlSchool" class="spell-form__label">School</label>
             <select id="formControlSchool" formControlName="school" class="spell-form__select">
                 @for (school of schools; track $index) {
-                    <option [ngValue]="school" class="spell-form__option">
-                        {{ school }}
-                    </option>
+                <option [ngValue]="school" class="spell-form__option">
+                    {{ school }}
+                </option>
                 }
             </select>
+        </div>
         }
-        @if(spellForm.controls['requiresConcentration']) {
-            <input id="formControlRequiresConcentration" type="checkbox" formControlName="requiresConcentration" class="spell-form__checkbox">
-            <label for="formControlRequiresConcentration" class="spell-form__label-checkbox">Concentration</label>
-        }
-        @if(spellForm.controls['isRitual']) {
-            <input id="formControlIsRitual" type="checkbox" formControlName="isRitual" class="spell-form__checkbox">
-            <label for="formControlIsRitual" class="spell-form__label-checkbox">isRitual</label>
-        }
+
+        <div class="spell-form__field field--checkbox">
+            @if(spellForm.controls['requiresConcentration']) {
+            <div>
+                <input id="formControlRequiresConcentration" type="checkbox" formControlName="requiresConcentration"
+                    class="spell-form__checkbox">
+                <label for="formControlRequiresConcentration" class="spell-form__label-checkbox">Concentration</label>
+            </div>
+            }
+            @if(spellForm.controls['isRitual']) {
+            <div>
+                <input id="formControlIsRitual" type="checkbox" formControlName="isRitual" class="spell-form__checkbox">
+                <label for="formControlIsRitual" class="spell-form__label-checkbox">isRitual</label>
+            </div>
+            }
+        </div>
+
     </div>
-    <div class="spell-form__field">
+
+    <div class="spell-form__row">
         @if(spellForm.controls['castingTime']) {
+        <div class="spell-form__field field--castingTime">
             <label for="formControlCastingTime" class="spell-form__label">Casting Time</label>
             <input id="formControlCastingTime" type="text" formControlName="castingTime" class="spell-form__input">
+        </div>
         }
         @if(spellForm.controls['duration']) {
+        <div class="spell-form__field field--duration">
             <label for="formControlDuration" class="spell-form__label">Duration</label>
             <input id="formControlDuration" type="text" formControlName="duration" class="spell-form__input">
+        </div>
         }
         @if(spellForm.controls['range']) {
+        <div class="spell-form__field field--range">
             <label for="formControlRange" class="spell-form__label">Range</label>
             <input id="formControlRange" type="text" formControlName="range" class="spell-form__input">
+        </div>
         }
     </div>
-    <div class="spell-form__field">
+
+    <div class="spell-form__row">
         @if(spellForm.controls['description']) {
+        <div class="spell-form__field field--description">
             <label for="formControlDescription" class="spell-form__label">Description</label>
-            <textarea id="formControlDescription" formControlName="description" rows="4" cols="50" class="spell-form__textarea"></textarea>
+            <textarea id="formControlDescription" formControlName="description" rows="4" cols="50"
+                class="spell-form__textarea"></textarea>
+        </div>
         }
     </div>
-    <div class="spell-form__field">
+
+    <div class="spell-form__row">
         @if(spellForm.controls['atHigherLevels']) {
+        <div class="spell-form__field field--atHigherLevels">
             <label for="formControlAtHigherLevels" class="spell-form__label">atHigherLevels</label>
-            <textarea id="formControlAtHigherLevels" formControlName="atHigherLevels" rows="4" cols="50" class="spell-form__textarea"></textarea>
+            <textarea id="formControlAtHigherLevels" formControlName="atHigherLevels" rows="4" cols="50"
+                class="spell-form__textarea"></textarea>
+        </div>
         }
     </div>
-    <div class="spell-form__field">
+
+    <div class="spell-form__row">
         @if(spellForm.controls['components']) {
+        <div class="spell-form__field field--components">
             <label for="formControlComponents" class="spell-form__label">Components</label>
             <input id="formControlComponents" type="text" formControlName="components" class="spell-form__input">
+        </div>
         }
+
         @if(spellForm.controls['class']) {
+        <div class="spell-form__field field--class">
             <label for="formControlClass" class="spell-form__label">Class</label>
             <select id="formControlClass" formControlName="class" class="spell-form__select">
                 @for (class of classes; track $index) {
-                    <option [ngValue]="class" class="spell-form__option">
-                        {{ class }}
-                    </option>
+                <option [ngValue]="class" class="spell-form__option">
+                    {{ class }}
+                </option>
                 }
             </select>
+        </div>
         }
     </div>
 </form>

@@ -1,4 +1,3 @@
-// Base styling for the spell card
 .spell-card {
     border: 1px solid #ccc;
     padding: 10px;
@@ -8,32 +7,27 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     
-    // Styles for spell name
     &__name {
         font-size: 1.2em;
         font-weight: bold;
         margin-bottom: 8px;
     }
 
-    // Styles for metadata
     &__metadata {
         text-align: center;
         font-style: italic;
         margin-bottom: 8px;
     }
 
-    // Styles for casting info
     &__casting-info {
         margin-bottom: 8px;
 
-        // Styles for casting time, range, and duration
         &__casting-time,
         &__casting-range,
         &__casting-duration {
             margin-bottom: 4px;
         }
 
-        // Styles for label and value in casting info
         &__label {
             font-weight: bold;
         }
@@ -43,13 +37,11 @@
         }
     }
 
-    // Styles for description and higher levels
     &__description,
     &__higher-levels {
         margin-bottom: 8px;
     }
 
-    // Styles for footer
     &__footer {
         font-size: 0.9em;
         color: #777;

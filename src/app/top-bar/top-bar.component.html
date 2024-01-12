@@ -1,6 +1,10 @@
 <div class="top-bar button-group">
-    <button (click)="manageButtonClick('ADD')" [disabled]="!enableNew" class="button-group__button button-group__button--add">ADD</button>
-    <button (click)="manageButtonClick('EDIT')" [disabled]="!enableEdit" class="button-group__button button-group__button--edit">EDIT</button>
-    <button (click)="manageButtonClick('IMPORT')" [disabled]="!enableImportExport" class="button-group__button button-group__button--import">IMPORT</button>
-    <button (click)="manageButtonClick('EXPORT')" [disabled]="!enableImportExport" class="button-group__button button-group__button--export">EXPORT</button>
+    <div class="top-bar__left">
+        <button (click)="manageButtonClick('ADD')" [disabled]="!enableNew" class="button-group__button button-group__button--add">ADD</button>
+        <button (click)="manageButtonClick('EDIT')" [disabled]="!enableEdit" class="button-group__button button-group__button--edit">EDIT</button>
+    </div>
+    <div class="top-bar__right">
+        <button (click)="manageButtonClick('IMPORT')" [disabled]="!enableImportExport" class="button-group__button button-group__button--import">IMPORT</button>
+        <button (click)="manageButtonClick('EXPORT')" [disabled]="!enableImportExport" class="button-group__button button-group__button--export">EXPORT</button>
+    </div>
 </div>

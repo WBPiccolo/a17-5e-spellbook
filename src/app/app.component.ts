@@ -41,6 +41,8 @@ export class AppComponent {
     ['Warlock', '#9933ff'], // Deep Purple
     ['Wizard', '#3366ff'], // Blue
   ]);
+
+  hideAccordion: boolean = false;
   
   spellBookSignal: WritableSignal<Spell[]> = signal([]);
 
@@ -56,6 +58,7 @@ export class AppComponent {
     source: new FormControl<string>(''),
     isRitual: new FormControl<boolean>(false),
     requiresConcentration: new FormControl<boolean>(false),
+    range: new FormControl<string>(''),
     class: new FormControl<string>('', Validators.required)
   });
 
@@ -92,5 +95,9 @@ export class AppComponent {
 
   spellClick(spell: Spell, index: number) {
     console.log('clicked', spell, index);
+  }
+  
+  manageAccordionStatus() {
+    this.hideAccordion = !this.hideAccordion;
   }
 }

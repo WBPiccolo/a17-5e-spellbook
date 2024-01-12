@@ -1,67 +1,88 @@
-// Define mixin for character class styles
-@mixin class-border($class) {
-    // Default border style
-    border: 1px solid #ccc;
-
-    // Specific border styles for each class
-    @if $class == 'Artificer' {
-        border-color: #ffcc00; // Example color for Artificer
-    } @else if $class == 'Barbarian' {
-        border-color: #cc0000; // Example color for Barbarian
-    } @else if $class == 'Bard' {
-        border-color: #6600cc; // Example color for Bard
-    } // Add more conditions for other classes
-}
-
-// Base styling for the spell form
 .spell-form {
-    display: flex;
-    flex-direction: column;
-    max-width: 400px;
-    margin: auto;
 
-    // Styles for spell form field
-    &__field {
+    &__row {
+        display: flex;
+        justify-content: space-between;
         margin-bottom: 16px;
     }
 
-    // Styles for label
-    &__label {
-        font-weight: bold;
-        margin-bottom: 8px;
+    &__field {
+        margin-right: 10px;
+        margin-bottom: 10px;
+
+        &.field {
+            &--name {
+                width: 40%;
+            }
+
+            &--checkbox {
+                margin-top: auto;
+                margin-bottom: auto;
+            }
+
+            &--castingTime {
+                width: 60%;
+            }
+
+            &--duration,
+            &--range {
+                width: 20%;
+            }
+
+            &--description, &--atHigherLevels {
+                width: 100%;
+            }
+
+            &--components {
+                width: 70%;
+            }
+
+            &--class {
+                width: 30%;
+            }
+        }
     }
 
-    // Styles for input, select, and textarea
+    &__label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 6px;
+    }
+
     &__input,
-    &__select,
+    &__select {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    &__checkbox {
+        margin-right: 4px;
+    }
+
     &__textarea {
         width: 100%;
         padding: 8px;
         box-sizing: border-box;
         border: 1px solid #ccc;
         border-radius: 4px;
-        margin-top: 4px;
-        margin-bottom: 8px;
         font-size: 14px;
+        resize: vertical;
     }
 
-    // Styles for checkbox
-    &__checkbox {
-        margin-right: 8px;
+    &__option {
+        padding: 8px;
     }
 
-    // Apply specific border styles for each class
-    &.Artificer {
-        @include class-border('Artificer');
+    &__select,
+    &__textarea {
+        margin-bottom: 10px;
     }
 
-    &.Barbarian {
-        @include class-border('Barbarian');
+    &__field:nth-child(2n) &__select {
+        margin-right: 0;
     }
-
-    &.Bard {
-        @include class-border('Bard');
-    }
-
-    // Add more similar blocks for other classes
 }
