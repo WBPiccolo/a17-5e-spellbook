@@ -1,0 +1,22 @@
+.accordion {
+    border: 1px solid grey;
+    border-radius: 4px;
+    padding: 5px 10px;
+    position: relative;
+    min-height: 15px;
+
+    &__header {
+        display: flex;
+        flex-direction: row-reverse;
+        font-style: italic;
+        position: absolute;
+        top: -10px;
+        width: 95%;
+        background-color: white;
+        padding: 0 1%;
+    }
+
+    &__body {
+        padding: 3px;
+    }
+}

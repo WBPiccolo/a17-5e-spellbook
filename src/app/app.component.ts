@@ -1,14 +1,15 @@
-import { Component, WritableSignal, signal } from '@angular/core';
+import { Component, ElementRef, ViewChild, WritableSignal, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TopBarComponent } from './top-bar/top-bar.component'
 import { Spell } from '../models/spell';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SpellFormComponent } from './spell-form/spell-form.component';
 import { SpellCardComponent } from './spell-card/spell-card.component';
+import { AccordionComponent } from './accordion/accordion.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, TopBarComponent, ReactiveFormsModule, SpellFormComponent, SpellCardComponent],
+  imports: [CommonModule, TopBarComponent, ReactiveFormsModule, SpellFormComponent, SpellCardComponent, AccordionComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -41,8 +42,6 @@ export class AppComponent {
     ['Warlock', '#9933ff'], // Deep Purple
     ['Wizard', '#3366ff'], // Blue
   ]);
-
-  hideAccordion: boolean = false;
   
   spellBookSignal: WritableSignal<Spell[]> = signal([]);
 
@@ -62,13 +61,22 @@ export class AppComponent {
     class: new FormControl<string>('', Validators.required)
   });
 
+  openAccordion: boolean = false
+
+  @ViewChild('spellbook')
+  spellbookRef!: ElementRef;
+
   manageAddClick() {
     const newSpell: Spell = this.spellForm.value
 
     console.log('manageAddClick', newSpell);
 
     this.spellBookSignal.update(spellBook => spellBook.concat(newSpell).sort((a, b) => a.level - b.level))
+    this.spellForm.reset();
 
+    if(this.spellbookRef?.nativeElement) {
+      (this.spellbookRef.nativeElement as HTMLElement).scrollIntoView();
+    }
   }
 
   manageEditClick() {
@@ -96,8 +104,5 @@ export class AppComponent {
   spellClick(spell: Spell, index: number) {
     console.log('clicked', spell, index);
   }
-  
-  manageAccordionStatus() {
-    this.hideAccordion = !this.hideAccordion;
-  }
+
 }

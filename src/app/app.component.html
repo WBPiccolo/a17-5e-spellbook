@@ -2,17 +2,19 @@
   (addClick)="manageAddClick()" (editClick)="manageEditClick()" (importClick)="manageImportClick()"
   (exportClick)="manageExportClick()"></app-top-bar>
 
-<div class="form-accordion">
-  <div class="form-accordion__header" (click)="manageAccordionStatus()">{{hideAccordion}}</div>
-  <div class="form-accordion__body" [ngClass]="hideAccordion? 'accordion_closed':'accordion_open'">
+<div class="app-body">
+  <app-accordion header="open form" [isOpen]="openAccordion">
     <app-spell-form [spellForm]="spellForm" [schools]="schools" [levels]="levels" [classes]="classes"></app-spell-form>
-  </div>
+  </app-accordion>
 </div>
 
-<div class="spellbook" id="printHere">
+<div class="spellbook" #spellbook id="printHere">
   @for (spell of spellBookSignal(); track $index) {
   <app-spell-card [spell]="spell" [colourMap]="dndClassColors" (click)="spellClick(spell, $index)"></app-spell-card>
   }
+
 </div>
 
-<!-- <button (click)="printSpellBook()" [disabled]="!spellBookSignal().length">PRINT</button> -->
+@if(spellBookSignal().length === 0) {
+  <div class="app-body no-spell-message">Empty spellbook, please add or import some spells</div>
+}

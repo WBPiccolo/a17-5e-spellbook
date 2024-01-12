@@ -3,24 +3,14 @@
     grid-template-columns: 1fr 1fr 1fr;
 }
 
-.form-accordion {
+.app-body {
     width: 40%;
     margin: 0 auto;
 }
 
-.accordion_open {
-    padding: 0 18px;
-    background-color: white;
-    overflow: hidden;
-    transition: max-height 0.2s ease-out;
+.no-spell-message {
+    display: flex;
+    justify-content: center;
+    margin-top: 3em;
+    //font-style: italic;
 }
-
-.accordion_closed {
-    padding: 0 18px;
-    background-color: white;
-    display: none;
-    overflow: hidden;
-    transition: max-height 0.2s ease-out;
-}
-
-//https://angular.io/guide/animations
