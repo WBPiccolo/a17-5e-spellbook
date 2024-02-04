@@ -11,14 +11,19 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 export class TopBarComponent {
   @Input() enableNew: boolean = true;
   @Input() enableEdit: boolean = false;
-  @Input() enableImportExport: boolean = false;
-  
+  @Input() enableDelete: boolean = false;
+
+  @Input() enableImport: boolean = false;
+  @Input() enableExport: boolean = false;
+
   @Output() addClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
   @Output() editClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  @Output() deleteClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+
   @Output() importClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
   @Output() exportClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
-  manageButtonClick(eventType: 'ADD' | 'EDIT' | 'IMPORT' | 'EXPORT') {
+  manageButtonClick(eventType: 'ADD' | 'EDIT' | 'DELETE' | 'IMPORT' | 'EXPORT') {
     console.log('manageButtonClick', eventType);
     switch (eventType) {
       case 'ADD':
@@ -26,6 +31,9 @@ export class TopBarComponent {
         break;
       case 'EDIT':
         this.editClick.emit();
+        break;
+      case 'DELETE':
+        this.deleteClick.emit();
         break;
       case 'IMPORT':
         this.importClick.emit();

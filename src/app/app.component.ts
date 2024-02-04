@@ -38,19 +38,22 @@ export class AppComponent implements OnInit {
     class: new FormControl<string>('', Validators.required)
   });
 
-  openAccordion: boolean = false
+  openAccordion: boolean = false;
+  editMode: boolean = false;
 
-  @ViewChild('spellbook')
-  spellbookRef!: ElementRef;
+  @ViewChild('spellbook') spellbookRef!: ElementRef;
 
-  constructor(public spellbookService: SpellBookService) {}
-  
+  @ViewChild('accordion') accordionRef!: ElementRef;
+
+  constructor(public spellbookService: SpellBookService) { }
+
   ngOnInit(): void {
     this.spellbookService.loadFromLocalStorage();
   }
 
   manageAddClick() {
-    const newSpell: Spell = this.spellForm.value
+    const spellId = new Date().getTime();
+    const newSpell: Spell = { ...this.spellForm.value, spellID: spellId };
 
     console.log('manageAddClick', newSpell);
 
@@ -63,6 +66,11 @@ export class AppComponent implements OnInit {
 
   manageEditClick() {
     console.log('manageEditClick');
+    //todo: trovare la spell da editare nello spellbook, e modificarla. come la modifico? devo usare un id?
+  }
+
+  manageDeleteClick() {
+    console.log('manageDeleteClick');
   }
 
   manageImportClick() {
@@ -71,6 +79,7 @@ export class AppComponent implements OnInit {
 
   manageExportClick() {
     console.log('manageExportClick');
+    this.spellbookService.exportJSON();
   }
 
   printSpellBook() {
@@ -86,12 +95,34 @@ export class AppComponent implements OnInit {
 
   spellClick(spell: Spell, index: number) {
     console.log('clicked', spell, index);
+    this.spellForm.patchValue(spell);
+    if (this.openAccordion) {
+      this.openAccordion = false;
+    }
+    this.openAccordion = true;
+    this.editMode = true;
+    //this.scrollToAccordion();
   }
 
   scrollToSpellbook() {
     if (this.spellbookRef?.nativeElement) {
       (this.spellbookRef.nativeElement as HTMLElement).scrollIntoView();
     }
+  }
+
+  scrollToAccordion() {
+    if (this.accordionRef?.nativeElement) {
+      (this.accordionRef.nativeElement as HTMLElement).scrollIntoView();
+    }
+  }
+
+
+  /**
+   * Checks if at least one of the form field has a value
+   */
+  get spellFormNotEmpty(): boolean {
+    const formValues: any[] = Object.values(this.spellForm.value);
+    return formValues.filter(val => !!val).length > 0;
   }
 
 }

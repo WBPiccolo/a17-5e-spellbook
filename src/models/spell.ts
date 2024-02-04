@@ -17,4 +17,6 @@ export interface Spell {
   source?: string;
   requiresConcentration?: boolean;
   class: string;
+
+  spellID: number;
 }

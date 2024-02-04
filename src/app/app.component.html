@@ -1,9 +1,11 @@
-<app-top-bar [enableNew]="spellForm.valid" [enableEdit]="false" [enableImportExport]="false"
+<app-top-bar 
+  [enableNew]="spellForm.valid && !editMode" [enableEdit]="spellForm.valid && editMode" [enableDelete]="spellFormNotEmpty" 
+  [enableImport]="false" [enableExport]="spellbookService.spellBookSignal().length > 0"
   (addClick)="manageAddClick()" (editClick)="manageEditClick()" (importClick)="manageImportClick()"
   (exportClick)="manageExportClick()"></app-top-bar>
 
 <div class="app-body">
-  <app-accordion openHeader="close form" closeHeader="open form" [isOpen]="openAccordion">
+  <app-accordion #accordion openHeader="close form" closeHeader="open form" [isOpen]="openAccordion">
     <app-spell-form [spellForm]="spellForm" [schools]="schools" [levels]="levels" [classes]="classes"></app-spell-form>
   </app-accordion>
 </div>

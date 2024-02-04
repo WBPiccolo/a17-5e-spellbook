@@ -25,7 +25,7 @@ export class SpellBookService {
   saveToLocalStorage() {
     const spellbook = this.spellBookSignal();
     console.log('salvo ', spellbook);
-    if(spellbook) {
+    if (spellbook) {
       localStorage.setItem(this.localStorageItemName, JSON.stringify(spellbook));
     }
   }
@@ -34,5 +34,14 @@ export class SpellBookService {
     this.spellBookSignal.update(spellBook => spellBook.concat(newSpell).sort((a, b) => a.level - b.level));
 
     this.saveToLocalStorage();
+  }
+
+  exportJSON() {
+    const link = document.createElement('a');
+    const file = new Blob([JSON.stringify(this.spellBookSignal())], {type: 'application/json'});
+    link.href = URL.createObjectURL(file);
+    link.download = 'spellbook.json';
+    link.click();
+    URL.revokeObjectURL(link.href);
   }
 }
