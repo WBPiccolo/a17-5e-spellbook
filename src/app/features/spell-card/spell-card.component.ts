@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Spell } from '../../models/spell';
+import { Spell } from '../../../models/spell';
 import { CommonModule } from '@angular/common';
 
 @Component({

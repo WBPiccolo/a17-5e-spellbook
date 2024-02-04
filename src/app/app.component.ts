@@ -1,12 +1,13 @@
 import { Component, ElementRef, OnInit, ViewChild, WritableSignal, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TopBarComponent } from './top-bar/top-bar.component'
+import { TopBarComponent } from './features/top-bar/top-bar.component'
 import { Spell } from '../models/spell';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SpellFormComponent } from './spell-form/spell-form.component';
-import { SpellCardComponent } from './spell-card/spell-card.component';
-import { AccordionComponent } from './accordion/accordion.component';
+import { SpellFormComponent } from './features/spell-form/spell-form.component';
+import { SpellCardComponent } from './features/spell-card/spell-card.component';
+import { AccordionComponent } from './features/accordion/accordion.component';
 import { SpellCostants } from '../models/spells.costants';
+import { SpellBookService } from './shared/services/spell-book.service';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -20,8 +21,6 @@ export class AppComponent implements OnInit {
   levels = SpellCostants.LEVELS;
   classes = SpellCostants.CLASSES;
   dndClassColors = SpellCostants.CLASS_COLORS;
-  
-  spellBookSignal: WritableSignal<Spell[]> = signal([]);
 
   spellForm: FormGroup = new FormGroup({
     name: new FormControl<string>('', Validators.required),
@@ -44,8 +43,10 @@ export class AppComponent implements OnInit {
   @ViewChild('spellbook')
   spellbookRef!: ElementRef;
 
+  constructor(public spellbookService: SpellBookService) {}
+  
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    this.spellbookService.loadFromLocalStorage();
   }
 
   manageAddClick() {
@@ -53,12 +54,11 @@ export class AppComponent implements OnInit {
 
     console.log('manageAddClick', newSpell);
 
-    this.spellBookSignal.update(spellBook => spellBook.concat(newSpell).sort((a, b) => a.level - b.level))
+    this.spellbookService.addSpell(newSpell);
     this.spellForm.reset();
 
-    if(this.spellbookRef?.nativeElement) {
-      (this.spellbookRef.nativeElement as HTMLElement).scrollIntoView();
-    }
+    this.scrollToSpellbook();
+
   }
 
   manageEditClick() {
@@ -75,16 +75,23 @@ export class AppComponent implements OnInit {
 
   printSpellBook() {
     //https://stackoverflow.com/questions/58972025/export-html-page-to-pdf-in-angular
-    const divContents = document.getElementById('printHere')?.innerHTML;
-    const printWindow = window.open('', '', 'height=400,width=800');
-    console.log(divContents);
-    if (divContents && printWindow) {
-      printWindow.document.write(divContents);
-    }
+    //vedere codice di fabio biondi anche
+    // const divContents = document.getElementById('printHere')?.innerHTML;
+    // const printWindow = window.open('', '', 'height=400,width=800');
+    // console.log(divContents);
+    // if (divContents && printWindow) {
+    //   printWindow.document.write(divContents);
+    // }
   }
 
   spellClick(spell: Spell, index: number) {
     console.log('clicked', spell, index);
+  }
+
+  scrollToSpellbook() {
+    if (this.spellbookRef?.nativeElement) {
+      (this.spellbookRef.nativeElement as HTMLElement).scrollIntoView();
+    }
   }
 
 }

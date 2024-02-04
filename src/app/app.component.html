@@ -9,12 +9,12 @@
 </div>
 
 <div class="spellbook" #spellbook id="printHere">
-  @for (spell of spellBookSignal(); track $index) {
+  @for (spell of spellbookService.spellBookSignal(); track $index) {
   <app-spell-card [spell]="spell" [colourMap]="dndClassColors" (click)="spellClick(spell, $index)"></app-spell-card>
   }
 
 </div>
 
-@if(spellBookSignal().length === 0) {
+@if(spellbookService.spellBookSignal().length === 0) {
   <div class="app-body no-spell-message">Empty spellbook, please add or import some spells</div>
 }
