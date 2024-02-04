@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, WritableSignal, signal } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, WritableSignal, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TopBarComponent } from './top-bar/top-bar.component'
 import { Spell } from '../models/spell';
@@ -6,6 +6,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { SpellFormComponent } from './spell-form/spell-form.component';
 import { SpellCardComponent } from './spell-card/spell-card.component';
 import { AccordionComponent } from './accordion/accordion.component';
+import { SpellCostants } from '../models/spells.costants';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -13,35 +14,12 @@ import { AccordionComponent } from './accordion/accordion.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
-  readonly schools = [
-    'Abjuration',
-    'Enchantment',
-    'Necromancy',
-    'Divination',
-    'Illusion',
-    'Conjuration',
-    'Evocation',
-    'Transmutation',
-    'War Magic'
-  ];
-  readonly levels = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-  readonly classes = ['Artificer', 'Barbarian', 'Bard', 'Cleric', 'Druid', 'Fighter', 'Monk', 'Paladin', 'Ranger', 'Rogue', 'Sorcerer', 'Warlock', 'Wizard'];
-  readonly dndClassColors: Map<string, string> = new Map([
-    ['Artificer', '#ffcc00'], // Yellow
-    ['Barbarian', '#cc0000'], // Red
-    ['Bard', '#6600cc'], // Purple
-    ['Cleric', '#33cc33'], // Green
-    ['Druid', '#009933'], // Forest Green
-    ['Fighter', '#ff9933'], // Orange
-    ['Monk', '#ff9966'], // Salmon
-    ['Paladin', '#ff6666'], // Light Red
-    ['Ranger', '#339966'], // Teal
-    ['Rogue', '#666666'], // Gray
-    ['Sorcerer', '#ff3399'], // Pink
-    ['Warlock', '#9933ff'], // Deep Purple
-    ['Wizard', '#3366ff'], // Blue
-  ]);
+export class AppComponent implements OnInit {
+
+  schools = SpellCostants.SCHOOLS;
+  levels = SpellCostants.LEVELS;
+  classes = SpellCostants.CLASSES;
+  dndClassColors = SpellCostants.CLASS_COLORS;
   
   spellBookSignal: WritableSignal<Spell[]> = signal([]);
 
@@ -65,6 +43,10 @@ export class AppComponent {
 
   @ViewChild('spellbook')
   spellbookRef!: ElementRef;
+
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
 
   manageAddClick() {
     const newSpell: Spell = this.spellForm.value

@@ -3,7 +3,7 @@
   (exportClick)="manageExportClick()"></app-top-bar>
 
 <div class="app-body">
-  <app-accordion header="open form" [isOpen]="openAccordion">
+  <app-accordion openHeader="close form" closeHeader="open form" [isOpen]="openAccordion">
     <app-spell-form [spellForm]="spellForm" [schools]="schools" [levels]="levels" [classes]="classes"></app-spell-form>
   </app-accordion>
 </div>
