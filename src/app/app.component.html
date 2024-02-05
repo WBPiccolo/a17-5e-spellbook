@@ -1,18 +1,18 @@
 <app-top-bar 
   [enableNew]="spellForm.valid && !editMode" [enableEdit]="spellForm.valid && editMode" [enableDelete]="spellFormNotEmpty" 
   [enableImport]="false" [enableExport]="spellbookService.spellBookSignal().length > 0"
-  (addClick)="manageAddClick()" (editClick)="manageEditClick()" (importClick)="manageImportClick()"
-  (exportClick)="manageExportClick()"></app-top-bar>
+  (addClick)="manageAddClick()" (editClick)="manageEditClick()" (deleteClick)="manageDeleteClick()" 
+  (importClick)="manageImportClick()" (exportClick)="manageExportClick()"></app-top-bar>
 
 <div class="app-body">
-  <app-accordion #accordion openHeader="close form" closeHeader="open form" [isOpen]="openAccordion">
+  <app-accordion #accordion openHeader="close form" closeHeader="open form" [isOpen]="openAccordion" (accordionOpened)="handleAccordionStatus($event)">
     <app-spell-form [spellForm]="spellForm" [schools]="schools" [levels]="levels" [classes]="classes"></app-spell-form>
   </app-accordion>
 </div>
 
 <div class="spellbook" #spellbook id="printHere">
   @for (spell of spellbookService.spellBookSignal(); track $index) {
-  <app-spell-card [spell]="spell" [colourMap]="dndClassColors" (click)="spellClick(spell, $index)"></app-spell-card>
+  <app-spell-card [spell]="spell" [colourMap]="dndClassColors" (click)="spellClick(spell)"></app-spell-card>
   }
 
 </div>

@@ -31,14 +31,33 @@ export class SpellBookService {
   }
 
   addSpell(newSpell: Spell) {
+    const spell: Spell = { ...newSpell, spellID: new Date().getTime() }
     this.spellBookSignal.update(spellBook => spellBook.concat(newSpell).sort((a, b) => a.level - b.level));
 
     this.saveToLocalStorage();
   }
 
+  editSpell(newSpell: Spell) {
+    this.spellBookSignal.update(spellBook => {
+      const spellIndex = spellBook.findIndex(spell => spell.spellID === newSpell.spellID);
+      if (spellIndex > -1) {
+        spellBook[spellIndex] = newSpell;
+      }
+      return spellBook
+    });
+
+    this.saveToLocalStorage();
+
+  }
+
+  deleteSpell(spellId: number) {
+    this.spellBookSignal.update(spellBook => spellBook.filter(spell => spell.spellID != spellId));
+    this.saveToLocalStorage();
+  }
+
   exportJSON() {
     const link = document.createElement('a');
-    const file = new Blob([JSON.stringify(this.spellBookSignal())], {type: 'application/json'});
+    const file = new Blob([JSON.stringify(this.spellBookSignal())], { type: 'application/json' });
     link.href = URL.createObjectURL(file);
     link.download = 'spellbook.json';
     link.click();

@@ -1,6 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild, WritableSignal, signal } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TopBarComponent } from './features/top-bar/top-bar.component'
+import { TopBarComponent } from './features/top-bar/top-bar.component';
 import { Spell } from '../models/spell';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SpellFormComponent } from './features/spell-form/spell-form.component';
@@ -35,7 +35,8 @@ export class AppComponent implements OnInit {
     isRitual: new FormControl<boolean>(false),
     requiresConcentration: new FormControl<boolean>(false),
     range: new FormControl<string>(''),
-    class: new FormControl<string>('', Validators.required)
+    class: new FormControl<string>('', Validators.required),
+    spellID: new FormControl<number>(-1)
   });
 
   openAccordion: boolean = false;
@@ -45,32 +46,41 @@ export class AppComponent implements OnInit {
 
   @ViewChild('accordion') accordionRef!: ElementRef;
 
-  constructor(public spellbookService: SpellBookService) { }
+  constructor(
+    public spellbookService: SpellBookService
+    ) { }
 
   ngOnInit(): void {
     this.spellbookService.loadFromLocalStorage();
   }
 
   manageAddClick() {
-    const spellId = new Date().getTime();
-    const newSpell: Spell = { ...this.spellForm.value, spellID: spellId };
-
-    console.log('manageAddClick', newSpell);
+    const newSpell: Spell =this.spellForm.value;
 
     this.spellbookService.addSpell(newSpell);
     this.spellForm.reset();
 
     this.scrollToSpellbook();
-
+    this.spellForm.reset();
   }
 
   manageEditClick() {
-    console.log('manageEditClick');
-    //todo: trovare la spell da editare nello spellbook, e modificarla. come la modifico? devo usare un id?
+    const spell: Spell = {...this.spellForm.value};
+    console.log('edit spell', spell);
+    this.spellbookService.editSpell(spell);
+
+    this.exitEditMode();
+    this.scrollToSpellbook();
+    this.spellForm.reset();
   }
 
   manageDeleteClick() {
-    console.log('manageDeleteClick');
+    const spellId = this.spellForm.value.spellID;
+    console.log('manageDeleteClick', spellId);
+    this.spellbookService.deleteSpell(spellId);
+    this.exitEditMode();
+    this.scrollToSpellbook();
+    this.spellForm.reset();
   }
 
   manageImportClick() {
@@ -78,7 +88,6 @@ export class AppComponent implements OnInit {
   }
 
   manageExportClick() {
-    console.log('manageExportClick');
     this.spellbookService.exportJSON();
   }
 
@@ -93,15 +102,14 @@ export class AppComponent implements OnInit {
     // }
   }
 
-  spellClick(spell: Spell, index: number) {
-    console.log('clicked', spell, index);
+  spellClick(spell: Spell) {
+    console.log('clicked spell', spell)
     this.spellForm.patchValue(spell);
     if (this.openAccordion) {
       this.openAccordion = false;
     }
     this.openAccordion = true;
     this.editMode = true;
-    //this.scrollToAccordion();
   }
 
   scrollToSpellbook() {
@@ -116,6 +124,12 @@ export class AppComponent implements OnInit {
     }
   }
 
+  handleAccordionStatus(data: boolean) {
+    this.openAccordion = data;
+    if(!data) {
+      this.spellForm.reset();
+    }
+  }
 
   /**
    * Checks if at least one of the form field has a value
@@ -125,4 +139,8 @@ export class AppComponent implements OnInit {
     return formValues.filter(val => !!val).length > 0;
   }
 
+  exitEditMode() {
+    this.editMode = false;
+    this.openAccordion = false;
+  }
 }

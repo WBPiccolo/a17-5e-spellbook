@@ -1,5 +1,5 @@
 import { animate, group, state, style, transition, trigger } from '@angular/animations';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-accordion',
@@ -34,7 +34,8 @@ export class AccordionComponent {
 
   toggle() {
     this.isOpen = !this.isOpen;
-    this.accordionOpened.emit(!this.isOpen)
+    this.accordionOpened.emit(this.isOpen)
   }
+
 }
 //https://angular.io/guide/animations#prerequisites
