@@ -1,8 +1,8 @@
 <app-top-bar 
   [enableNew]="spellForm.valid && !editMode" [enableEdit]="spellForm.valid && editMode" [enableDelete]="spellFormNotEmpty" 
-  [enableImport]="false" [enableExport]="spellbookService.spellBookSignal().length > 0"
+  [enableExport]="spellbookService.spellBookSignal().length > 0"
   (addClick)="manageAddClick()" (editClick)="manageEditClick()" (deleteClick)="manageDeleteClick()" 
-  (importClick)="manageImportClick()" (exportClick)="manageExportClick()"></app-top-bar>
+  (importClick)="manageImportClick($event)" (exportClick)="manageExportClick()"></app-top-bar>
 
 <div class="app-body">
   <app-accordion #accordion openHeader="close form" closeHeader="open form" [isOpen]="openAccordion" (accordionOpened)="handleAccordionStatus($event)">

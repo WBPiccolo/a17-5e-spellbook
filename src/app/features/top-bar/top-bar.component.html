@@ -6,7 +6,10 @@
 
     </div>
     <div class="top-bar__right">
-        <button (click)="manageButtonClick('IMPORT')" [disabled]="!enableImport" class="button-group__button button-group__button--import">IMPORT</button>
+        <label for="file-upload" class="file-upload">
+            <button [disabled]="!enableImport" class="button-group__button button-group__button--import">IMPORT</button>
+        </label>
+        <input [disabled]="!enableImport" id="file-upload" type="file" (change)="fileChanged($event)" accept=".json"/>
         <button (click)="manageButtonClick('EXPORT')" [disabled]="!enableExport" class="button-group__button button-group__button--export">EXPORT</button>
     </div>
 </div>

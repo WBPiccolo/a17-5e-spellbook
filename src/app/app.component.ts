@@ -83,8 +83,8 @@ export class AppComponent implements OnInit {
     this.spellForm.reset();
   }
 
-  manageImportClick() {
-    console.log('manageImportClick');
+  manageImportClick(file: File) {
+    this.spellbookService.loadFromFile(file);
   }
 
   manageExportClick() {

@@ -55,6 +55,25 @@ export class SpellBookService {
     this.saveToLocalStorage();
   }
 
+  loadFromFile(file: File) {
+    let fileReader = new FileReader();
+    fileReader.onload = (e) => {
+      if (fileReader.result) {
+        try {
+          const res = JSON.parse(fileReader.result.toString()) as Spell[];
+          console.log('res', res)
+          this.spellBookSignal.update(spellbook => res);
+        } catch (e) {
+          console.log('file non valido')
+        }
+      }
+    }
+    fileReader.readAsText(file, 'utf-8');
+
+    this.saveToLocalStorage();
+
+  }
+
   exportJSON() {
     const link = document.createElement('a');
     const file = new Blob([JSON.stringify(this.spellBookSignal())], { type: 'application/json' });
