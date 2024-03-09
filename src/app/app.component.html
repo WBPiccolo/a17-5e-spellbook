@@ -10,9 +10,13 @@
   </app-accordion>
 </div>
 
+<div class="print-button">
+  <button (click)="printSpellBook()"> PRINT</button>
+</div>
+
 <div class="spellbook" #spellbook id="printHere">
   @for (spell of spellbookService.spellBookSignal(); track $index) {
-  <app-spell-card [spell]="spell" [colourMap]="dndClassColors" (click)="spellClick(spell)"></app-spell-card>
+  <app-spell-card [spell]="spell" [htmlColour]="getClassColour(spell.class)" (click)="spellClick(spell)"></app-spell-card>
   }
 
 </div>

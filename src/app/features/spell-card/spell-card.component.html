@@ -1,11 +1,13 @@
-<div class="spell-card" [style.backgroundColor]="colourMap.get(spell.class)">
-    <div class="spell-card__name">
+<div class="spell-card" [style.border-color]="htmlColour">
+    <div class="spell-card__name" [style.border-color]="htmlColour">
         {{spell.name}}
     </div>
-    <div class="spell-card__metadata">
-        {{spell.level}} {{spell.school}} {{spell.requiresConcentration}} {{spell.isRitual}}
+    <div class="spell-card__metadata" [style.border-color]="htmlColour">
+        {{formatSpellLevel(spell.level)}}
+        {{spell.school}}
+        <i>{{spell.requiresConcentration? ', Requires Concentration' : ''}} {{spell.isRitual ? ', Ritual' : ''}}</i>
     </div>
-    <div class="spell-card__casting-info">
+    <div class="spell-card__casting-info" [style.border-color]="htmlColour">
         <div class="spell-card__casting-time">
             <div class="spell-card__label">Casting time</div>
             <div class="spell-card__value">{{spell.castingTime}}</div>
@@ -19,13 +21,15 @@
             <div class="spell-card__value">{{spell.duration}}</div>
         </div>
     </div>
-    <div class="spell-card__description">
-        {{spell.description}}
+    <div class="spell-card__description" [ngStyle]="{ 'font-size.px': calculateFontSize() }"
+        [innerHTML]="spell.description | diceBoldPipe">
     </div>
-    <div class="spell-card__description spell-card__higher-levels">
-        {{spell.atHigherLevels}}
+    <div class="spell-card__description spell-card__higher-levels" [ngStyle]="{ 'font-size.px': calculateFontSize() }"
+        [innerHTML]="spell.atHigherLevels ? (spell.atHigherLevels| diceBoldPipe) : ''">
     </div>
     <div class="spell-card__footer">
-        {{spell.components}} {{spell.source}}
+        <div class="spell-card__class">{{spell.class}}</div>
+        <div class="spell-card__components">{{spell.components}}</div>
+        <!-- <div class="spell-card__source">{{spell.source}}</div> -->
     </div>
 </div>

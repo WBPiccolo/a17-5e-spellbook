@@ -48,14 +48,14 @@ export class AppComponent implements OnInit {
 
   constructor(
     public spellbookService: SpellBookService
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.spellbookService.loadFromLocalStorage();
   }
 
   manageAddClick() {
-    const newSpell: Spell =this.spellForm.value;
+    const newSpell: Spell = this.spellForm.value;
 
     this.spellbookService.addSpell(newSpell);
     this.spellForm.reset();
@@ -65,7 +65,7 @@ export class AppComponent implements OnInit {
   }
 
   manageEditClick() {
-    const spell: Spell = {...this.spellForm.value};
+    const spell: Spell = { ...this.spellForm.value };
     console.log('edit spell', spell);
     this.spellbookService.editSpell(spell);
 
@@ -85,6 +85,7 @@ export class AppComponent implements OnInit {
 
   manageImportClick(file: File) {
     this.spellbookService.loadFromFile(file);
+
   }
 
   manageExportClick() {
@@ -99,6 +100,108 @@ export class AppComponent implements OnInit {
     // console.log(divContents);
     // if (divContents && printWindow) {
     //   printWindow.document.write(divContents);
+    // }
+
+    //window.print();
+    const printElement = this.spellbookRef.nativeElement as HTMLElement;
+    const cssElement = getComputedStyle(printElement);
+    console.log(printElement);
+    const css: string = `
+        <style>
+          .spellbook {
+              display: grid;
+              grid-template-columns: 1fr 1fr 1fr;
+          }
+
+          .spell-card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            
+            &__name {
+                font-size: 1.2em;
+                font-weight: bold;
+                margin-bottom: 8px;
+            }
+        
+            &__metadata {
+                text-align: center;
+                font-style: italic;
+                margin-bottom: 8px;
+            }
+        
+            &__casting-info {
+                margin-bottom: 8px;
+        
+                &__casting-time,
+                &__casting-range,
+                &__casting-duration {
+                    margin-bottom: 4px;
+                }
+        
+                &__label {
+                    font-weight: bold;
+                }
+        
+                &__value {
+                    margin-left: 8px;
+                }
+            }
+        
+            &__description,
+            &__higher-levels {
+                margin-bottom: 8px;
+            }
+        
+            &__footer {
+                font-size: 0.9em;
+                color: #777;
+            }
+        }
+        
+
+        </style>
+    `;
+    const htmlTemplate: string = `
+  <html>
+    <head>
+    ${css}
+    </head>
+    <body>
+    ${printElement.outerHTML}
+    </body>
+
+  `;
+    //printElement.innerHTML;
+    const printWindow = window.open('', 'PRINT', 'height=2480,width=3508');
+    if (printWindow) {
+      printWindow.document.write(htmlTemplate);
+      // printWindow.document.write('<html><head><title></title>');
+      // //TODO: Come ci passo il css?
+      // printWindow.document.write('</head><body >');
+      // printWindow.document.write(printElement.innerHTML);
+      // printWindow.document.write('</body></html>');
+      printWindow.document.close();
+      printWindow.focus();
+      setTimeout(function () { printWindow.print(); }, 1000);
+    }
+    // const mywindow = window.open('', 'PRINT', 'height=2480,width=3508');
+    // if(mywindow){
+    //   mywindow.document.write('<html><head><title>' + document.title  + '</title>');
+    //   mywindow.document.write('</head><body >');
+    //   mywindow.document.write('<h1>' + document.title  + '</h1>');
+    //   mywindow.document.write(document.getElementById('printHere')!.innerHTML);
+    //   mywindow.document.write('</body></html>');
+
+    //   mywindow.document.close(); // necessary for IE >= 10
+    //   mywindow.focus(); // necessary for IE >= 10*/
+
+    //   mywindow.print();
+    //   //mywindow.close();
     // }
   }
 
@@ -126,21 +229,25 @@ export class AppComponent implements OnInit {
 
   handleAccordionStatus(data: boolean) {
     this.openAccordion = data;
-    if(!data) {
+    if (!data) {
       this.spellForm.reset();
     }
   }
+
+  getClassColour(className: string): string {
+  return this.dndClassColors.get(className) || '';
+}
 
   /**
    * Checks if at least one of the form field has a value
    */
   get spellFormNotEmpty(): boolean {
-    const formValues: any[] = Object.values(this.spellForm.value);
-    return formValues.filter(val => !!val).length > 0;
-  }
+  const formValues: any[] = Object.values(this.spellForm.value);
+  return formValues.filter(val => !!val).length > 0;
+}
 
-  exitEditMode() {
-    this.editMode = false;
-    this.openAccordion = false;
-  }
+exitEditMode() {
+  this.editMode = false;
+  this.openAccordion = false;
+}
 }

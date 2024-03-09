@@ -6,21 +6,28 @@
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    
+    height: 300px;
+    position: relative;
+
     &__name {
         font-size: 1.2em;
         font-weight: bold;
         margin-bottom: 8px;
+        border-bottom: 1px solid;
     }
 
     &__metadata {
         text-align: center;
         font-style: italic;
         margin-bottom: 8px;
+        border-bottom: 1px solid;
     }
 
     &__casting-info {
         margin-bottom: 8px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        border-bottom: 1px solid;
 
         &__casting-time,
         &__casting-range,
@@ -45,5 +52,14 @@
     &__footer {
         font-size: 0.9em;
         color: #777;
+        width: 94%;
+        position: absolute;
+        bottom: 5px;
+        display: flex;
+        justify-content: space-around;
+        font-style: italic;
+        border-top: 1px solid;
+        padding-top: 5px;
+        left: 3%;
     }
 }

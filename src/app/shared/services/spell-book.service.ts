@@ -63,6 +63,8 @@ export class SpellBookService {
           const res = JSON.parse(fileReader.result.toString()) as Spell[];
           console.log('res', res)
           this.spellBookSignal.update(spellbook => res);
+          this.saveToLocalStorage();
+
         } catch (e) {
           console.log('file non valido')
         }
@@ -70,7 +72,6 @@ export class SpellBookService {
     }
     fileReader.readAsText(file, 'utf-8');
 
-    this.saveToLocalStorage();
 
   }
 
