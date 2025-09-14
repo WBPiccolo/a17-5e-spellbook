@@ -75,9 +75,9 @@ export class AppComponent implements OnInit {
   }
 
   manageDeleteClick() {
-    const spellId = this.spellForm.value.spellID;
-    console.log('manageDeleteClick', spellId);
-    this.spellbookService.deleteSpell(spellId);
+    const spell: Spell = this.spellForm.value;
+    console.log('manageDeleteClick', spell);
+    this.spellbookService.deleteSpell(spell);
     this.exitEditMode();
     this.scrollToSpellbook();
     this.spellForm.reset();

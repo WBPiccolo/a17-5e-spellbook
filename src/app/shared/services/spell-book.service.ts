@@ -15,7 +15,7 @@ export class SpellBookService {
     let loadedSpellbook: Spell[] = [];
     if (localStorageData) {
       loadedSpellbook = JSON.parse(localStorageData) as Spell[];
-      this.spellBookSignal = signal(loadedSpellbook);
+      this.spellBookSignal = signal(loadedSpellbook.map(spell => ({...spell, spellID: new Date().getTime()})));
       console.log('loaded spellbook from localStorage', loadedSpellbook);
     } else {
       console.log(`couldn't find a saved spellbook!`);
@@ -32,7 +32,7 @@ export class SpellBookService {
 
   addSpell(newSpell: Spell) {
     const spell: Spell = { ...newSpell, spellID: new Date().getTime() }
-    this.spellBookSignal.update(spellBook => spellBook.concat(newSpell).sort((a, b) => a.level - b.level));
+    this.spellBookSignal.update(spellBook => spellBook.concat(spell).sort((a, b) => a.level - b.level));
 
     this.saveToLocalStorage();
   }
@@ -50,8 +50,13 @@ export class SpellBookService {
 
   }
 
-  deleteSpell(spellId: number) {
-    this.spellBookSignal.update(spellBook => spellBook.filter(spell => spell.spellID != spellId));
+  deleteSpell(spell: Spell) {
+    console.log('elimino la spell', spell)
+    const spellBook = this.spellBookSignal();
+    const filteredSpellBook = spellBook.filter(savedSpell => savedSpell.name != spell.name);
+    console.log(spellBook.length, filteredSpellBook.length)
+
+    this.spellBookSignal.set(filteredSpellBook);
     this.saveToLocalStorage();
   }
 
@@ -61,8 +66,9 @@ export class SpellBookService {
       if (fileReader.result) {
         try {
           const res = JSON.parse(fileReader.result.toString()) as Spell[];
-          console.log('res', res)
-          this.spellBookSignal.update(spellbook => res);
+          const spell = res.map(res => ({...res, spellID: new Date().getTime()}))
+          console.log('res', spell)
+          this.spellBookSignal.update(spellbook => spell);
           this.saveToLocalStorage();
 
         } catch (e) {
