@@ -4,12 +4,11 @@ import { CommonModule } from '@angular/common';
 import { DiceBoldPipePipe } from "../../shared/pipes/dice-bold-pipe.pipe";
 
 @Component({
-  selector: 'app-spell-card',
-  standalone: true,
-  templateUrl: './spell-card.component.html',
-  styleUrl: './spell-card.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, DiceBoldPipePipe]
+    selector: 'app-spell-card',
+    templateUrl: './spell-card.component.html',
+    styleUrl: './spell-card.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [CommonModule, DiceBoldPipePipe]
 })
 export class SpellCardComponent {
   @Input() spell!: Spell;

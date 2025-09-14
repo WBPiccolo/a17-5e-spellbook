@@ -9,11 +9,10 @@ import { AccordionComponent } from './features/accordion/accordion.component';
 import { SpellCostants } from '../models/spells.costants';
 import { SpellBookService } from './shared/services/spell-book.service';
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule, TopBarComponent, ReactiveFormsModule, SpellFormComponent, SpellCardComponent, AccordionComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+    selector: 'app-root',
+    imports: [CommonModule, TopBarComponent, ReactiveFormsModule, SpellFormComponent, SpellCardComponent, AccordionComponent],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
 

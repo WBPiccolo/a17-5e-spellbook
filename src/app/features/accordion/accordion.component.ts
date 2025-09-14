@@ -2,27 +2,26 @@ import { animate, group, state, style, transition, trigger } from '@angular/anim
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
 @Component({
-  selector: 'app-accordion',
-  standalone: true,
-  imports: [],
-  templateUrl: './accordion.component.html',
-  styleUrl: './accordion.component.scss',
-  animations: [
-    trigger('slideInOut', [
-      state('open', style({
-        height: '*',
-        opacity: 1,
-      })),
-      state('closed', style({
-        height: '0',
-        opacity: 0,
-        overflow: 'hidden',
-      })),
-      transition('open <=> closed', [
-        animate('300ms ease-in-out'),
-      ]),
-    ]),
-  ],
+    selector: 'app-accordion',
+    imports: [],
+    templateUrl: './accordion.component.html',
+    styleUrl: './accordion.component.scss',
+    animations: [
+        trigger('slideInOut', [
+            state('open', style({
+                height: '*',
+                opacity: 1,
+            })),
+            state('closed', style({
+                height: '0',
+                opacity: 0,
+                overflow: 'hidden',
+            })),
+            transition('open <=> closed', [
+                animate('300ms ease-in-out'),
+            ]),
+        ]),
+    ]
 })
 export class AccordionComponent {
   @Input() isOpen: boolean = false
